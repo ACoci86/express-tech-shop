@@ -1,8 +1,12 @@
 import express from "express";
+import { pool } from "./db/index.js"; // Note: If using native ES Modules, you often need the .js extension
 
 const app = express();
-
 const PORT = 3000;
+
+// Middleware for parsing requests (Good practice to include early)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const products = [
   {
@@ -32,9 +36,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-    res.render("pages/products", {products})
-})
+    res.render("pages/products", { products });
+});
+
+
+app.get("/db-test", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT NOW() AS now");
+        res.send("DB connected: " + result.rows[0].now);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("DB connection failed");
+    }
+});
 
 app.listen(PORT, () => {
-    console.log("Running on port " + PORT);
+    console.log(`Running on port ${PORT}`);
 });
