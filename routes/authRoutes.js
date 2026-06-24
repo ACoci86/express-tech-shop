@@ -9,7 +9,7 @@ router.get("/register", (req, res) => {
 }); 
 
 router.get("/login", (req, res) => {
-    res.send("Login will come soon")
+    res.render("pages/login")
 });
 
 router.post("/register", async(req, res) => {
