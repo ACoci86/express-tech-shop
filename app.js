@@ -18,6 +18,15 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+    res.locals.user = {
+        id: req.session.userId,
+        name: req.session.userName
+    };
+
+    next();
+})
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {

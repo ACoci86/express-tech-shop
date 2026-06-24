@@ -1,10 +1,27 @@
+<%# The nav links used to show up stacked vertically. That happened because
+    Bootstrap's .navbar-nav is vertical by default, and only becomes horizontal
+    when it's inside a .navbar element that has a navbar-expand-* class.
+    The wrapping <nav class="navbar navbar-expand-lg"> below is what makes the
+    links sit in a horizontal row. %>
+
+    
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/">Express Tech Shop</a>
-
-    <div class="navbar-nav ms-auto">
+    <a class="navbar-brand" href="/">Tech Shop</a>
+    <div class="navbar-nav me-auto">
       <a class="nav-link" href="/">Home</a>
       <a class="nav-link" href="/products">Products</a>
+    </div>
+    <div class="navbar-nav">
+      <% if (user.id) { %>
+        <span class="navbar-text text-light me-3">
+          Hi, <%= user.name %>
+        </span>
+        <a class="nav-link" href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a class="nav-link" href="/auth/login">Login</a>
+        <a class="nav-link" href="/auth/register">Register</a>
+      <% } %>
     </div>
   </div>
 </nav>
