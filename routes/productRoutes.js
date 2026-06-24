@@ -7,7 +7,8 @@ const router = express.Router();
 //render page with all products
 router.get("/", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM products ORDER BY id ASC");
+    const result = await pool.query 
+    ("SELECT * FROM products ORDER BY id ASC");
 
     res.render("pages/products", {
       products: result.rows
