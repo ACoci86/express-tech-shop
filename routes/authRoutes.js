@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 router.get("/register", (req, res) => {
-    res.send("Register will come soon")
+    res.render("pages/register")
 }); 
 
 router.get("/login", (req, res) => {
