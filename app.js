@@ -7,7 +7,6 @@ const app = express();
 const PORT = 3000;
 
 // Middleware for parsing requests (Good practice to include early)
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
