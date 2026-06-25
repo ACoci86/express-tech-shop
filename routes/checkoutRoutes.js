@@ -19,7 +19,8 @@ router.post("/", requireAuth, async (req, res) => {
         cart_items.quantity,
         products.id AS product_id,
         products.name,
-        products.price
+        products.price,
+        products.stock
       FROM cart_items
       JOIN products ON cart_items.product_id = products.id
       WHERE cart_items.user_id = $1
@@ -31,6 +32,15 @@ router.post("/", requireAuth, async (req, res) => {
     if (cartResult.rows.length === 0) {
       await client.query("ROLLBACK");
       return res.status(400).send("Your cart is empty");
+    }
+
+    for (const item of cartResult.rows) {
+      if (item.quantity > item.stock) {
+        await client.query("ROLLBACK");
+        return res
+          .status(400)
+          .send(`Not enough stock for ${item.name}`);
+      }
     }
 
     let total = 0;
@@ -58,6 +68,22 @@ router.post("/", requireAuth, async (req, res) => {
         `,
         [orderId, item.product_id, item.quantity, item.price]
       );
+
+      const stockResult = await client.query(
+        `
+        UPDATE products
+        SET stock = stock - $1
+        WHERE id = $2 AND stock >= $1
+        `,
+        [item.quantity, item.product_id]
+      );
+
+      if (stockResult.rowCount === 0) {
+        await client.query("ROLLBACK");
+        return res
+          .status(400)
+          .send(`Not enough stock for ${item.name}`);
+      }
     }
 
     await client.query(

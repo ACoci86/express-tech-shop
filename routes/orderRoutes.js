@@ -4,6 +4,29 @@ import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 
+router.get("/", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const result = await pool.query(
+      `
+      SELECT id, total, status, created_at
+      FROM orders
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      `,
+      [userId]
+    );
+
+    res.render("pages/orders", {
+      orders: result.rows
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Something went wrong loading your orders");
+  }
+});
+
 router.get("/:orderId", requireAuth, async (req, res) => {
   try {
     const userId = req.session.userId;

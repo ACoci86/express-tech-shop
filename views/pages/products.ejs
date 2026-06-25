@@ -2,17 +2,27 @@
 <%- include("../partials/navbar") %>
 
 <main class="container py-5">
-  <h1 class="mb-4">Products</h1>
+  <h1 class="h2 mb-4">Products</h1>
 
   <div class="row g-4">
     <% products.forEach((product) => { %>
-      <div class="col-md-4">
-        <div class="card h-100">
+      <div class="col-sm-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card">
           <img src="<%= product.image_url %>" class="card-img-top product-img" alt="<%= product.name %>">
-          <div class="card-body">
+
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text">€<%= product.price %></p>
-        <a href="/products/<%= product.id %>" class="btn btn-primary">View Product</a>
+            <p class="card-text fs-5 fw-semibold text-primary mb-2">€<%= product.price %></p>
+
+            <% if (product.stock === 0) { %>
+              <span class="badge bg-secondary align-self-start mb-3"><i class="bi bi-x-circle me-1"></i>Out of stock</span>
+            <% } else { %>
+              <span class="badge bg-success-subtle text-success-emphasis align-self-start mb-3"><i class="bi bi-check-circle me-1"></i>In stock</span>
+            <% } %>
+
+            <a href="/products/<%= product.id %>" class="btn btn-primary mt-auto">
+              View Product <i class="bi bi-arrow-right ms-1"></i>
+            </a>
           </div>
         </div>
       </div>
