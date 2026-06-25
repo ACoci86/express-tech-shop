@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import { pool } from "../db/index.js"
 
+
 const router = express.Router();
 
 router.get("/register", (req, res) => {

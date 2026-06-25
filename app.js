@@ -5,6 +5,7 @@ import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js"
 import { requireAuth } from "./middleware/requireAuth.js";
 import cartRoutes from "./routes/cartRoutes.js"
+import checkoutRoutes from "./routes/checkoutRoutes.js";
 
 const app = express();
 const PORT = 3000;
@@ -44,6 +45,8 @@ app.use("/products", productRoutes);
 app.use("/auth", authRoutes);
 
 app.use("/cart", cartRoutes);
+
+app.use("/checkout", checkoutRoutes);
 
 
 app.listen(PORT, () => {
