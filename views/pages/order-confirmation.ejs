@@ -1,0 +1,58 @@
+<%- include("../partials/header") %>
+<%- include("../partials/navbar") %>
+
+<main class="container py-5">
+  <div class="alert alert-success">
+    <h1 class="mb-1">Thank you for your order!</h1>
+    <p class="mb-0">Your order has been placed successfully.</p>
+  </div>
+
+  <div class="mb-4">
+    <p class="mb-1"><strong>Order ID:</strong> #<%= order.id %></p>
+    <p class="mb-0"><strong>Total:</strong> €<%= Number(order.total).toFixed(2) %></p>
+  </div>
+
+  <h2 class="mb-3">Products ordered</h2>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% orderItems.forEach((item) => { %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-3">
+                <img
+                  src="<%= item.image_url %>"
+                  alt="<%= item.name %>"
+                  style="width: 80px; height: 80px; object-fit: cover;"
+                  class="rounded"
+                >
+
+                <div>
+                  <strong><%= item.name %></strong>
+                </div>
+              </div>
+            </td>
+
+            <td>€<%= item.price %></td>
+            <td><%= item.quantity %></td>
+            <td>€<%= (item.price * item.quantity).toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/products" class="btn btn-primary mt-3">Back to products</a>
+</main>
+
+<%- include("../partials/footer") %>

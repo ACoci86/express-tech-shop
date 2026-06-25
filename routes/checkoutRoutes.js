@@ -67,7 +67,7 @@ router.post("/", requireAuth, async (req, res) => {
 
     await client.query("COMMIT");
 
-    res.send(`Order created successfully. Your order ID is ${orderId}.`);
+    res.redirect(`/orders/${orderId}`);
   } catch (error) {
     await client.query("ROLLBACK");
     console.error(error);
