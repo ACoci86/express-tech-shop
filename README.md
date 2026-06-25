@@ -100,7 +100,7 @@ not empty.
 
 ```bash
 # 1. Clone and install
-git clone <your-repo-url>
+git clone https://github.com/ACoci86/express-tech-shop.git
 cd express-tech-shop
 npm install
 
