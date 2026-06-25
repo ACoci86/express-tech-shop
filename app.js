@@ -10,7 +10,7 @@ import checkoutRoutes from "./routes/checkoutRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); //lets Express read JSON data
 app.use(express.urlencoded({ extended: true })); //lets Express read data from HTML forms

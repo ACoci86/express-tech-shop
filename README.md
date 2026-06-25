@@ -4,6 +4,8 @@ A small full-stack e-commerce app for desk tech accessories. You can browse
 products, manage a cart, check out, and view your order history. It is built
 with Express, EJS, and PostgreSQL (hosted on [Neon](https://neon.tech)).
 
+**Live demo:** https://express-tech-shop.onrender.com
+
 ## Screenshots
 
 | Landing page | Products |
