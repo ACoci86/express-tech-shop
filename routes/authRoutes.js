@@ -67,6 +67,17 @@ router.post("/login", async (req, res) => {
     }
 })
 
+router.get("/logout", (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("something went wrong when loggin out")
+        }
+
+        res.redirect("/");
+    }) 
+})
+
 
 
 
