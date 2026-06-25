@@ -47,7 +47,16 @@ router.get("/", requireAuth, async (req, res) => {
       [userId]
     );
 
-    res.render("pages/cart", {  cartItems: result.rows})
+    let total = 0;
+
+    result.rows.forEach((item) => {
+      total = total + item.price * item.quantity;
+    });
+
+    res.render("pages/cart", {
+      cartItems: result.rows,
+      total
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Something went wrong loading your cart");
