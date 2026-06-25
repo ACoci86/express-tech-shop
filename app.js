@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", requireAuth, (req, res) => {
-    res.send("Welcome to your profile, " + req.session.userName)
+     res.render("pages/profile");
 });
 
 app.use("/products", productRoutes);
