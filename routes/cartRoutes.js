@@ -54,4 +54,21 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
+router.post("/remove/:cartItemId", requireAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const cartItemId = req.params.cartItemId;
+
+    await pool.query(
+      "DELETE FROM cart_items WHERE id = $1 AND user_id = $2",
+      [cartItemId, userId]
+    );
+
+    res.redirect("/cart");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Something went wrong removing item from cart");
+  }
+});
+
 export default router;
