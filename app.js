@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import productRoutes from "./routes/productRoutes.js";
 import authRoutes from "./routes/authRoutes.js"
+import { requireAuth } from "./middleware/requireAuth.js";
 
 const app = express();
 const PORT = 3000;
@@ -31,6 +32,10 @@ app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.render("pages/home");
+});
+
+app.get("/profile", requireAuth, (req, res) => {
+    res.send("Welcome to your profile, " + req.session.userName)
 });
 
 app.use("/products", productRoutes);
